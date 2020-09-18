@@ -8,15 +8,17 @@ import json
 model = K.models.load_model('model')
 
 app = FastAPI()
+app.debug = True
 
-class OsteoDetails(BaseModel):
+class Features(BaseModel):
     features: list
 
 @app.post("/detect")
-async def detect_chances_of_osteo(details: OsteoDetails):
-    x = pd.DataFrame(details.features).T
+async def detect_chances_of_osteo(features: Features):
+    print(features.features)
+    x = pd.DataFrame(features.features).T
     res = model.predict(x)
-    return json.dumps(res)
+    return json.dumps(res.tolist()[0][0])
 
 
 if __name__ == '__main__': 

@@ -9,6 +9,7 @@ verify_ssl = true
 fastapi = "*"
 uvicorn = "*"
 pandas = "*"
+tensorflow = "*"
 
 [requires]
 python_version = "3.8"
