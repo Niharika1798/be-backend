@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from pydantic import BaseModel
 from tensorflow import keras as K
@@ -8,6 +9,13 @@ import json
 model = K.models.load_model('model')
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins="*",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.debug = True
 
 class Features(BaseModel):
